@@ -1,0 +1,57 @@
+# test config ITU P.835 page, waveform, 3 conditions, looping
+
+testname: P.835
+testId: p835
+bufferSize: 2048
+stopOnErrors: true
+showButtonPreviousPage: true
+remoteService: service/write.php
+
+pages:
+  - type: p835sig
+    id: sig
+    name: Mono Trial
+    content: "Attending ONLY to the SPEECH SIGNAL, select the category which best describes the sample you just heard. The SPEECH SIGNAL in this sample was:"
+    showWaveform: true
+    enableLooping: true
+    reference: configs/resources/audio/mono_ref.wav
+    createAnchor35: false
+    createAnchor70: false
+    stimuli:
+      C1: configs/resources/audio/mono_c1.wav
+      C2: configs/resources/audio/mono_c2.wav
+      C3: configs/resources/audio/mono_c3.wav
+
+  - type: p835bak
+    id: bak
+    name: Mono Trial
+    content: "Attending ONLY to the BACKGROUND, select the category which best describes the sample you just heard. The BACKGROUND in this sample was:"
+    showWaveform: true
+    enableLooping: true
+    reference: configs/resources/audio/mono_ref.wav
+    createAnchor35: false
+    createAnchor70: false
+    stimuli:
+      C1: configs/resources/audio/mono_c1.wav
+      C2: configs/resources/audio/mono_c2.wav
+      C3: configs/resources/audio/mono_c3.wav
+
+  - type: p835ovl
+    id: ovl
+    name: Mono Trial
+    content: "Select the category which best describes the sample you just heard for purposes of everyday speech communication.The OVERALL SPEECH SAMPLE was:"
+    showWaveform: true
+    enableLooping: true
+    reference: configs/resources/audio/mono_ref.wav
+    createAnchor35: false
+    createAnchor70: false
+    stimuli:
+      C1: configs/resources/audio/mono_c1.wav
+      C2: configs/resources/audio/mono_c2.wav
+      C3: configs/resources/audio/mono_c3.wav
+
+  - type: finish
+    name: Thank you
+    content: Thank you for attending
+    showResults: true
+    writeResults: true
