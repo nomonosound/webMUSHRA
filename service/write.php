@@ -90,6 +90,7 @@ if ($write_mushra) {
 
 // p835sig
 $write_p835sig = false;
+
 $p835sigCsvData = array();
 
 
@@ -138,6 +139,111 @@ if ($write_p835sig) {
 	}
 	fclose($fp);
 }
+
+// p835bak
+$write_p835bak = false;
+
+$p835sigCsvData = array();
+
+
+$input = array("session_test_id");
+for($i =0; $i < $length; $i++){
+	array_push($input, $session->participant->name[$i]);
+}
+array_push($input, "session_uuid", "trial_id", "rating_stimulus", "rating_score", "rating_time", "rating_comment");
+array_push($p835sigCsvData, $input);
+
+ 
+ 
+ foreach ($session->trials as $trial) {
+  if ($trial->type == "p835bak") {
+  $write_p835bak = true;
+
+    foreach ($trial->responses as $response) {
+
+
+    $results = array($session->testId);
+    for($i =0; $i < $length; $i++){
+      array_push($results, $session->participant->response[$i]);
+    }
+    array_push($results, $session->uuid, $trial->id, $response->stimulus, $response->score, $response->time, $response->comment);
+
+      array_push($p835sigCsvData, $results);
+
+
+    }
+      /*array_push($p835sigCsvData, array($session->testId, $session->participant->email, $session->participant->age, $session->participant->gender, $trial->id, $response->stimulus, $response->score, $response->time, $response->comment));
+     *
+     */
+  }
+}
+		
+if ($write_p835bak) {
+	$filename = $filepathPrefix."p835bak".$filepathPostfix;
+	$isFile = is_file($filename);
+	$fp = fopen($filename, 'a');
+	foreach ($p835sigCsvData as $row) {
+		if ($isFile) {	    	
+			$isFile = false;
+		} else {
+		   fputcsv($fp, $row);
+		}
+	}
+	fclose($fp);
+}
+
+// p835ovl
+$write_p835ovl = false;
+
+$p835sigCsvData = array();
+
+
+$input = array("session_test_id");
+for($i =0; $i < $length; $i++){
+	array_push($input, $session->participant->name[$i]);
+}
+array_push($input, "session_uuid", "trial_id", "rating_stimulus", "rating_score", "rating_time", "rating_comment");
+array_push($p835sigCsvData, $input);
+
+ 
+ 
+ foreach ($session->trials as $trial) {
+  if ($trial->type == "p835ovl") {
+  $write_p835ovl = true;
+
+    foreach ($trial->responses as $response) {
+
+
+    $results = array($session->testId);
+    for($i =0; $i < $length; $i++){
+      array_push($results, $session->participant->response[$i]);
+    }
+    array_push($results, $session->uuid, $trial->id, $response->stimulus, $response->score, $response->time, $response->comment);
+
+      array_push($p835sigCsvData, $results);
+
+
+    }
+      /*array_push($p835sigCsvData, array($session->testId, $session->participant->email, $session->participant->age, $session->participant->gender, $trial->id, $response->stimulus, $response->score, $response->time, $response->comment));
+     *
+     */
+  }
+}
+		
+if ($write_p835ovl) {
+	$filename = $filepathPrefix."p835ovl".$filepathPostfix;
+	$isFile = is_file($filename);
+	$fp = fopen($filename, 'a');
+	foreach ($p835sigCsvData as $row) {
+		if ($isFile) {	    	
+			$isFile = false;
+		} else {
+		   fputcsv($fp, $row);
+		}
+	}
+	fclose($fp);
+}
+
 
 // paired comparison
 

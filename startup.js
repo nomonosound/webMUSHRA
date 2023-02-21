@@ -88,6 +88,12 @@ function addPagesToPageManager(_pageManager, _pages) {
       } else if (pageConfig.type == "p835sig") {
         var p835SigPage = new P835SigPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
         _pageManager.addPage(p835SigPage);
+      } else if (pageConfig.type == "p835bak") {
+        var p835BakPage = new P835BakPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
+        _pageManager.addPage(p835BakPage);
+      } else if (pageConfig.type == "p835ovl") {
+        var p835OvlPage = new P835OvlPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
+        _pageManager.addPage(p835OvlPage);
       } else if (pageConfig.type == "spatial") {
         _pageManager.addPage(new SpatialPage(_pageManager, pageConfig, session, audioContext, config.bufferSize, audioFileLoader, errorHandler, config.language));
       } else if (pageConfig.type == "paired_comparison") {

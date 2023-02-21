@@ -11,7 +11,7 @@ pages:
   - type: p835sig
     id: sig
     name: Mono Trial
-    content: "Attending ONLY to the SPEECH SIGNAL, select the category which best describes the sample you just heard. The SPEECH SIGNAL in this sample was:"
+    content: "Listen to the REFERENCE. Then, listen to each of the CONDITIONS labeled Cond. and for each condition pay attention ONLY to the SPEECH signal and rate how each of the condition sounds in regards to distortion."
     showWaveform: true
     enableLooping: true
     reference: configs/resources/audio/mono_ref.wav
