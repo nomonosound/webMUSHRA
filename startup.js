@@ -12,7 +12,7 @@ function checkOrientation() {//when changing from potrait to landscape change to
 
 }
 
-window.onresize = function(event) {
+window.onresize = function (event) {
   if (pageManager.getCurrentPage() && pageManager.getCurrentPage().isMushra == true) {
     pageManager.getCurrentPage().renderCanvas("mushra_items");
   }
@@ -85,7 +85,16 @@ function addPagesToPageManager(_pageManager, _pages) {
       } else if (pageConfig.type == "mushra") {
         var mushraPage = new MushraPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
         _pageManager.addPage(mushraPage);
-      } else if ( pageConfig.type == "spatial"){
+      } else if (pageConfig.type == "p835sig") {
+        var p835SigPage = new P835SigPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
+        _pageManager.addPage(p835SigPage);
+      } else if (pageConfig.type == "p835bak") {
+        var p835BakPage = new P835BakPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
+        _pageManager.addPage(p835BakPage);
+      } else if (pageConfig.type == "p835ovl") {
+        var p835OvlPage = new P835OvlPage(_pageManager, audioContext, config.bufferSize, audioFileLoader, session, pageConfig, mushraValidator, errorHandler, config.language);
+        _pageManager.addPage(p835OvlPage);
+      } else if (pageConfig.type == "spatial") {
         _pageManager.addPage(new SpatialPage(_pageManager, pageConfig, session, audioContext, config.bufferSize, audioFileLoader, errorHandler, config.language));
       } else if (pageConfig.type == "paired_comparison") {
         var pcPageManager = new PairedComparisonPageManager();
@@ -132,17 +141,17 @@ function startup(config) {
   }
 
   $.mobile.page.prototype.options.theme = 'a';
-  var interval = setInterval(function() {
+  var interval = setInterval(function () {
     $.mobile.loading("show", {
-      text : "Loading...",
-      textVisible : true,
-      theme : "a",
-      html : ""
+      text: "Loading...",
+      textVisible: true,
+      theme: "a",
+      html: ""
     });
     clearInterval(interval);
   }, 1);
-  
-  
+
+
   if (pageManager !== null) { // clear everything for new experiment
     pageTemplateRenderer.clear();
     $("#page_content").empty();
@@ -167,9 +176,9 @@ function startup(config) {
   pageManager = new PageManager("pageManager", "page_content", localizer);
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-  if ( typeof AudioContext !== 'undefined') {
+  if (typeof AudioContext !== 'undefined') {
     audioContext = new AudioContext();
-  } else if ( typeof webkitAudioContext !== 'undefined') {
+  } else if (typeof webkitAudioContext !== 'undefined') {
     audioContext = new webkitAudioContext();
   }
 
@@ -205,7 +214,7 @@ function startup(config) {
 
   addPagesToPageManager(pageManager, config.pages);
 
-  interval2 = setInterval(function() {
+  interval2 = setInterval(function () {
     clearInterval(interval2);
     audioFileLoader.startLoading(callbackFilesLoaded);
   }, 10);
@@ -242,7 +251,7 @@ var pageTemplateRenderer = null;
 var interval2 = null;
 
 
-YAML.load(configFile, (function(result) {
+YAML.load(configFile, (function (result) {
   config = result;
   startup(result);
 }));
